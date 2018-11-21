@@ -10,20 +10,43 @@ The maximum number of persons per car is 5 (incl. the driver).
 
 ## Decision space
 
-Each of $P$ persons either brings a car, or not.
+Each of N persons either brings a car, or not.
 This is formalized as an P-dimensional binary vector $a$.
-If person $p$ brings a car, $a_p$ is 1, else 0.
+If person $i$ brings a car, $a_i$ is 1, else 0.
 
 ## Available information
 
-At which time slot a person wants to ride to work, is known from matrix $W$ of size $p x s$.
-When she wants to return home is known from table $H$, of size $p x s$.
-If person $p$ wants to ride at slot $s$, $W_{ps} == 1$, else 0. 
+1. At which time slot a person wants to ride to work,
+is known from matrix $W$ of size $i x j$.
+When she wants to return home is known from table $H$, of size $i x j$.
+If person $i$ wants to ride at slot $s$, $W_{ij} = 1$, else $0$.
+Either is person is riding both to work and back, or not at all.
+Thus, the row sums in $W$ and $H$ are each $0$ or $2$.
 
+2. The distance between a person's home and work is provided in vector $d_i$.
+For simplification, $d_i$ can be 1 for each person $i$.
+
+3. Driving others adds distance to a budget, from which riding in someone else's car is deduced.
+These budgets are held in vector $b$, $b_i$ being the budget of person $i$.
+Distance budgets can be any positive or negative number.
+These budgets need to be updated after each time a schedule is taken out.
+
+## Optimization target
+
+The main target is to minimize the number of cars used in a day.
+At lower priority -- for fairness -- minimize the difference in distances that persons drive with their own cars.
+This is minimizing the sum of absolute 'distance budgets' after haven taken out the schedule.
+Given, $t_i < b_i - d_i a_i$ and $t_i > b_i - d_i a_i$,
+minimize $\sum a_i + 0.1 t_i$
 
 ## Constraints
 
-1. At each time slot of trips 'to work' and 'to home', enough persons offer their car (i.e. at least 1 in 5).
+1. At each *requested* time slot of trips 'to work' and 'to home', enough persons offer their car (i.e. at least 1 in 5):
 
-2. The number of people bringing their cars should be minimal.
+For each column in W: $W_11 a_1 + ... + W_1m a_i) > 1/6 * (W_11 + ... + W_1n)$
 
+For each column in H: $H_11 a_1 + ... + H_1m a_i) > 1/6 * (H_11 + ... + H_1n)$
+
+## TODOs
+
+* Implement solver in R

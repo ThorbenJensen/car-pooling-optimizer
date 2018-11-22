@@ -29,15 +29,13 @@ For simplification, $d_i$ can be 1 for each person $i$.
 3. Driving others adds distance to a budget, from which riding in someone else's car is deduced.
 These budgets are held in vector $b$, $b_i$ being the budget of person $i$.
 Distance budgets can be any positive or negative number.
-These budgets need to be updated after each time a schedule is taken out.
+These budgets should be updated after each time a schedule is taken out.
 
 ## Optimization target
 
 The main target is to minimize the number of cars used in a day.
-At lower priority -- for fairness -- minimize the difference in distances that persons drive with their own cars.
-This is minimizing the sum of absolute 'distance budgets' after haven taken out the schedule.
-Given, $t_i < b_i - d_i a_i$ and $t_i > b_i - d_i a_i$,
-minimize $\sum a_i + 0.1 t_i$
+At lower priority -- for fairness -- prioritize driver with higher mileage budget.
+minimize $\sum a_i + 0.1 b_i a_i$
 
 ## Constraints
 
@@ -49,4 +47,6 @@ For each column in H: $H_11 a_1 + ... + H_1m a_i) > 1/6 * (H_11 + ... + H_1n)$
 
 ## TODOs
 
-* Implement solver in R
+* Test/validate current solver
+* Automate data ingestion
+* Create reports

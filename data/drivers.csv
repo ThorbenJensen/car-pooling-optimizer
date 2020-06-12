@@ -1,0 +1,6 @@
+driver_id,seats,seat_balance
+1,4,5
+2,5,-2
+3,5,10
+4,4,0
+5,0,-10

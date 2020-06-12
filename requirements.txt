@@ -1,0 +1,7 @@
+# prod
+pulp
+pandas
+# dev
+black
+flake8
+rope

@@ -1,2 +1,7 @@
+# R
 *.html
 .Rproj.user
+
+# python
+.vscode
+env

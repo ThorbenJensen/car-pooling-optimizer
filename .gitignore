@@ -5,3 +5,6 @@
 # python
 .vscode
 env
+
+# exported model
+model.txt

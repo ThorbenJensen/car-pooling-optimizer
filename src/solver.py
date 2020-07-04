@@ -62,7 +62,9 @@ for time in times_end:
 
 # Solve
 model.solve()
-pulp.LpStatus[model.status]
+print(f"Status of solver: {pulp.LpStatus[model.status]}")
+model.writeLP("model.txt")
+
 
 # print solution
 solution = [bool(driver_drives[driver_id].varValue) for driver_id in drivers.index]
